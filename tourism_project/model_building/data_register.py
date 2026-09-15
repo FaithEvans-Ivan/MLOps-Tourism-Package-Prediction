@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv("/content/drive/My Drive/Tourism-Package/tourism.csv")   
+df = pd.read_csv("/content/drive/My Drive/tourism_project/tourism.csv")   
 df.drop(columns=["CustomerID"], inplace=True)   
 
 # NOTE: categorical columns are intentionally left as raw strings.
