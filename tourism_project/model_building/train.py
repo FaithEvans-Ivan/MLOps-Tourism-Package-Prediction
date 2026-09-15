@@ -11,8 +11,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 import joblib
 import mlflow
 
-mlflow.set_tracking_uri("http://localhost:5000")   # complete the code to set the MLflow tracking URI
-mlflow.set_experiment("MLOps_experiment")     
+mlflow.set_tracking_uri("http://localhost:5000")   
+mlflow.set_experiment("mlops-training-experiment")     
 
 # Xtrain/Xtest/ytrain/ytest are downloaded from the previous job's artifact
 Xtrain = pd.read_csv("Xtrain.csv")
@@ -116,7 +116,7 @@ with mlflow.start_run():
 
     # Save the model next to app.py so the Streamlit app can load it directly,
     # and log it as an MLflow artifact for traceability
-    model_path = "tourism_project/deployment/best_Tourism-Project_model_v1.joblib"   
-    joblib.dump(best_model, model_path)  # complete the code to save the model
+    model_path = "tourism_project/deployment/best_Tourism_Project_model_v1.joblib" 
+    joblib.dump(best_model, model_path) 
     mlflow.log_artifact(model_path, artifact_path="model")
     print(f"Model saved to {model_path}")
