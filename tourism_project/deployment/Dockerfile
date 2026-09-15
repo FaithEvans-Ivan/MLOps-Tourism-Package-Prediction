@@ -1,23 +1,13 @@
-# Use a minimal base image with Python 3.9 installed
-FROM python:3.9
+FROM python:3.11-slim
 
-# Set the working directory inside the container to /app
 WORKDIR /app
 
-# Copy all files from the current directory on the host to the container's /app directory
-COPY . .
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Python dependencies listed in requirements.txt
-RUN pip3 install -r requirements.txt
+COPY app.py .
+COPY best_Tourism-Project_model_v1.joblib .
 
-RUN useradd -m -u 1000 user
-USER user
-ENV HOME=/home/user \
-	PATH=/home/user/.local/bin:$PATH
+EXPOSE 8501
 
-WORKDIR $HOME/app
-
-COPY --chown=user . $HOME/app
-
-# Define the command to run the Streamlit app on port "8501" and make it accessible externally
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
